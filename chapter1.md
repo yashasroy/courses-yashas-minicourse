@@ -318,7 +318,6 @@ knn.fit(X_train, y_train)
 
 # Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
-
 ```
 
 *** =solution
@@ -335,7 +334,6 @@ from sklearn.metrics import accuracy_score
 knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X_train, y_train)
 accuracy = accuracy_score(y_test, knn.predict(X_test))
-
 ```
 *** =sct
 ```{python}
