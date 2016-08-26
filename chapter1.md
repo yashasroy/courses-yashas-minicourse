@@ -120,7 +120,7 @@ msg_success = "Exactly! There are 16 features and 435 samples."
 test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
 ```
 
---- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
+--- type:NormalExercise lang:python xp:100 skills:1 key:fad5659252
 ## But wait! Missing values!
 
 As you saw in the previous exercise, we do not know how the votes of certain Congressmen on certain issues. These are represented by the '?' instead of a 'yes' ('y') or a 'no' ('n'). Do we just delete these rows? That would throw away most of our data! Let's instead develop a reasonable strategy to fill in these missing values (the technical term is imputation). This is where domain knowledge comes in handy. For our purposes, let's replace the '?'s with the probability of all other representatives voting 'yes' on that particular issue.  
@@ -188,7 +188,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 
 success_msg("Great work!")
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
+--- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
 ## Training and Testing
 
 Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting records to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
