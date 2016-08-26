@@ -44,32 +44,32 @@ df.rename(columns = {'index': 'party'}, inplace = True)
 *** =sample_code
 ```{python}
 # What are the dimensions of this dataframe?
-df._
+print(df._)
 
 # How many samples does this dataset have?
-df._[_]
+print(df._[_])
 
 # How many columns does this dataset have?
-df._[_]
+print(df._[_])
 
 # List out the columns of this dataset
-df._
+print(df._)
 
 ```
 
 *** =solution
 ```{python}
 # What are the dimensions of this dataframe?
-df.shape
+print(df.shape)
 
 # How many samples does this dataset have?
-df.shape[0]
+print(df.shape[0])
 
 # How many features does this dataset have?
-df.shape[1]
+print(df.shape[1])
 
 # List out the features of this dataset
-df.columns
+print(df.columns)
 ```
 
 *** =sct
