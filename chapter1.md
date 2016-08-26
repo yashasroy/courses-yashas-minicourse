@@ -337,7 +337,7 @@ accuracy = accuracy_score(y_test, knn.predict(X_test))
 
 success_msg("Great work!")
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:b0329a110c
+--- type:NormalExercise lang:python xp:100 skills:1 key:9a56717464
 ## K Nearest Neighbors: Your turn!
 
 Follow the steps in the previous exercise to build your own K Nearest Neighbors classifier. Try 7 neighbors, and print out the accuracy score.
