@@ -503,7 +503,7 @@ As you can see, when the number of neighbors are either too high or too low, acc
 
 Remember our motivation for splitting the data into training and testing sets: We want our model to generalize well to unseen data.
 
-Now consider what happens when we fit a model that considers only the next nearest neighbor. Such a model ends up being excessively complicated, and fits too closely to the training data. This is known as overfitting, where the model fits to the noise in the data instead of capturing the underlying pattern. If your results look suspiciously good (98% accuracy, say), it is likely the model is overfitting to the data it has been trained on. High accuracy on training data and low accuracy on test data is the hallmark of an overfit model.
+Now consider what happens when we fit a model that considers only the next nearest neighbor. Such a model ends up being excessively complicated, and fits too closely to the training data. This is known as overfitting, where the model fits to the noise in the data instead of capturing the underlying pattern. If your results look suspiciously good (98% accuracy, say), it is likely the model is overfitting to the data it has been trained on. High accuracy on training data and low accuracy on test data is the hallmark of an overfit model. 
 
 On the other end of the spectrum is underfitting. What happens when we look at, say, the 100 nearest neighbors? Such a model can be too simple - it fails to capture the underlying pattern in the data, and is just as poor at generalizing.
 
@@ -675,6 +675,129 @@ print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 
 success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
 ```
+--- type:NormalExercise lang:python xp:100 skills:1 key:24fd70b5aa
+## Precision and Recall
 
+On the previous page, we delved into the pitfalls of using accuracy as a metric. Let's now take a step back and introduce the concept of a confusion matrix. 
+
+For each of our testing samples, we can make one of two predictions: 'Democrat' or 'Republican'. When we compare our predicted value to the actual value, there are the following possibilities:
+
+True Positive (TP): Predicted Democrat and Actually Democrat, or Predicted Republican and Actually Republican
+False Positive: Predicted Democrat but Actually Republican, or Predicted Republican but Actually Democrat
+True Negative: Did not Predict Democrat and was not Actually Democrat, or Did not Predict Republican and was not Actually Republican
+False Negative: Did not predict Democrat but Actually Democrat, Did not predict Republican but Actually Republican
+
+The false positive is also known in statistics as a Type I error or a "false alarm", while the false negative is also known as a Type II error.
+
+Using a confusion matrix, we can make more nuanced predictions. Say we want to effectively be able to identify democrats, and 'Democrat' predictions represent positive outcomes. What proportion of democrats are we able to correctly identify, or what is the True positive rate? This is known as recall.
+
+Or, of all the times we predicted 'Democrat' how many times were we correct? This is precision. They are calculated as follows:
+
+Precision: True Positive/(True Positive + False Positive)
+
+Recall: True Positive/(True positive + False Negative)
+
+There is a metric called the F1 Score that combines precision and recall to generate a score that is easy to interpret when evaluating a model. It is computed by taking the harmonic mean of precision and recall. It takes on a range of values from 0 to 1.0, where an F1 score of 1.0 indicates perfect classification performance.
+
+Depending on application, in some situations we may favor high recall or high precision. 
+
+Let's calculate these metrics for our dataset.
+
+*** =instructions
+- Train a KNN model with 7 neighbors as you did in an earlier exercise
+- Calculate and print out precision, recall, and f1 score
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+from sklearn.metrics import accuracy_score
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 60% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
+
+```
+
+*** =sample_code
+```{python}
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+#Import precision_score from sklearn.metrics
+from sklearn.metrics import precision_score
+
+#Import recall_score from sklearn.metrics
+from sklearn.metrics import recall_score
+
+#Create the classifier with 7 neighbors
+knn = KNeighborsClassifier(n_neighbors=_)
+
+#Fit the classifier to the training data (X_train and y_train)
+knn.fit(X_train, y_train)
+
+# Calculate and print the precision, recall, f1 score
+print(precision_score(y_test, knn.predict(X_test))
+print(recall_score(y_test, knn.predict(X_test))
+print(f1_score(y_test, knn.predict(X_test))
+```
+
+*** =solution
+```{python}
+```{python}
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+#Import precision_score from sklearn.metrics
+from sklearn.metrics import precision_score
+
+#Import recall_score from sklearn.metrics
+from sklearn.metrics import recall_score
+
+#Create the classifier with 7 neighbors
+knn = KNeighborsClassifier(n_neighbors=7)
+
+#Fit the classifier to the training data (X_train and y_train)
+knn.fit(X_train, y_train)
+
+# Calculate and print the precision, recall, f1 score
+print(precision_score(y_test, knn.predict(X_test))
+print(recall_score(y_test, knn.predict(X_test))
+print(f1_score(y_test, knn.predict(X_test))
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
+```
 
 
