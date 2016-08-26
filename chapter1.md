@@ -87,7 +87,7 @@ success_msg("Great work!")
 
 What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
 
-On the right, the first few rows of the dataframe are displayed for you to get a understanding.
+On the right, the first few rows of the dataframe are displayed for you to get a understanding of what the data looks like.
 
 *** =instructions
 - 435 features, 16 samples
@@ -141,7 +141,7 @@ Machine learning algorithms take in numeric values. A 'yes' or a 'no' is not num
 *** =pre_exercise_code
 ```{python}
 import pandas as pd
-
+import numpy as np
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
