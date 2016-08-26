@@ -102,32 +102,33 @@ import numpy as np
 
 *** =sample_code
 ```{python}
-# Get integer values for genres
-_, ints = np.unique(movies.genre, return_inverse = True)
+# What are the dimensions of this dataframe?
+df.___
 
-# Import matplotlib.pyplot
+# How many samples does this dataset have?
+df.___[__]
 
+# How many features does this dataset have?
+df.___[__]
 
-# Make a scatter plot: runtime on  x-axis, rating on y-axis and set c to ints
-
-
-# Show the plot
+# List out the features of this dataset
+df.___
 
 ```
 
 *** =solution
 ```{python}
-# Get integer values for genres
-_, ints = np.unique(movies.genre, return_inverse = True)
+# What are the dimensions of this dataframe?
+df.shape
 
-# Import matplotlib.pyplot
-import matplotlib.pyplot as plt
+# How many samples does this dataset have?
+df.shape[0]
 
-# Make a scatter plot: runtime on  x-axis, rating on y-axis and set c to ints
-plt.scatter(movies.runtime, movies.rating, c=ints)
+# How many features does this dataset have?
+df.shape[1]
 
-# Show the plot
-plt.show()
+# List out the features of this dataset
+df.columns
 ```
 
 *** =sct
