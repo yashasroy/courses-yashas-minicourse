@@ -140,20 +140,20 @@ df.columns
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-test_function("numpy.unique",
+test_function("df.shape",
+              not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
+              incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
+              
+test_function("df.shape[0]",
+              not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
+              incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
+              
+test_function("df.shape[1]",
               not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
               incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
 
-test_object("ints",
-            undefined_msg = "Don't remove the definition of the predefined `ints` object.",
-            incorrect_msg = "Don't change the definition of the predefined `ints` object.")
-
-test_import("matplotlib.pyplot", same_as = True)
-
-test_function("matplotlib.pyplot.scatter",
+test_function("df.columns",
               incorrect_msg = "You didn't use `plt.scatter()` correctly, have another look at the instructions.")
-
-test_function("matplotlib.pyplot.show")
 
 success_msg("Great work!")
 ```
