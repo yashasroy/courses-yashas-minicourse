@@ -99,7 +99,7 @@ On the right, the first few rows of the dataframe are displayed for you to get a
 Remember, the number of columns does not equal the number of features! One of the columns represents the target variable (republican/democrat). 
 
 *** =pre_exercise_code
-```{r}
+```{python}
 # The pre exercise code runs code to initialize the user's workspace.
 # You can use it to load packages, initialize datasets and draw a plot in the viewer
 
@@ -114,7 +114,7 @@ print(df.head())
 ```
 
 *** =sct
-```{r}
+```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
 msg_bad = "That is not correct!"
@@ -301,8 +301,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
 
 *** =sample_code
 ```{python}
-# Import train_test_split from sklearn.cross_validation
-from sklearn.cross_validation import train_test_split
 
 #Import KNeighborsClassifier from sklearn.neighbors
 from sklearn.neighbors import KNeighborsClassifier
@@ -311,20 +309,18 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 #Create the classifier with 5 neighbors
-knn = KNeighborsClassifier(n_neighbors = _)
+knn = KNeighborsClassifier(n_neighbors=_)
 
 #Fit the classifier to the training data (X_train and y_train)
 knn.fit(X_train, y_train)
 
 # Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
+
 ```
 
 *** =solution
 ```{python}
-# Import train_test_split from sklearn.cross_validation
-from sklearn.cross_validation import train_test_split
-
 #Import KNeighborsClassifier from sklearn.neighbors
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -341,3 +337,78 @@ accuracy = accuracy_score(y_test, knn.predict(X_test))
 
 success_msg("Great work!")
 ```
+--- type:NormalExercise lang:python xp:100 skills:1 key:b0329a110c
+## K Nearest Neighbors: Your turn!
+
+Follow the steps in the previous exercise to build your own K Nearest Neighbors classifier. Try 7 neighbors, and print out the accuracy score.
+
+*** =instructions
+- First, import the relevant modules
+- Create the KNN classifier with 7 neighbors and assign to the variable knn
+- Fit the classifier to the training data
+- Predict on the testing data, and compare the predicted values (from knn.predict(X_test) with the actual values (y_test)) to compute the accuracy score.
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+```
+
+*** =sample_code
+```{python}
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+#Create the classifier with 7 neighbors
+
+#Fit the classifier to the training data (X_train and y_train)
+
+# Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
+```
+
+*** =solution
+```{python}
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(X_train, y_train)
+accuracy = accuracy_score(y_test, knn.predict(X_test))
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Great work!")
+```
+
