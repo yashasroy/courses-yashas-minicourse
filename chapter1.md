@@ -5,7 +5,7 @@ attachments :
   slides_link : https://s3.amazonaws.com/assets.datacamp.com/course/teach/slides_example.pdf
 
 --- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
-## Machine Learning 
+## Machine Learning: An Introduction
 
 The TL;DR Version: Learning from past data to make future predictions
 
@@ -85,7 +85,9 @@ success_msg("Great work!")
 --- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
 ## What did we learn frome the previous excercise?
 
-What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we?
+What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
+
+On the right, the first few rows of the dataframe are displayed for you to get a understanding.
 
 *** =instructions
 - 435 features, 16 samples
@@ -189,7 +191,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 success_msg("Great work!")
 ```
 --- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
-## Training and Testing
+## Train and Test Split
 
 Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting records to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
 
@@ -197,8 +199,11 @@ We don't want to feed it all the data, however. We need it to be able to general
 
 For this purpose, we hold out some data for model evaluation. We train our model using the training data, and evaluate it on the testing data. Scikit-learn provides us a useful `train_test_split` function for this.
 
+
 *** =instructions
 - Import `train_test_split` from `sklearn.cross_validation`.
+- Create an array, y, for the response variable ('party').
+- Create the feature vector, X, by dropping the response variable 'party'
 - Split the data so that 75% (0.75) is available for training and 25% (0.25) is held out for testing.
 
 *** =hint
@@ -207,7 +212,7 @@ For this purpose, we hold out some data for model evaluation. We train our model
 *** =pre_exercise_code
 ```{python}
 import pandas as pd
-
+import numpy as np
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
@@ -229,7 +234,6 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 # Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
 y = df['_']
 X = df.drop('_', axis=1)
-
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
 X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
@@ -253,4 +257,90 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
 
 success_msg("Great work!")
 ```
+--- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
+## K Nearest Neighbors: A simple classifier
 
+Of all the numerous classification algorithms that are used today, K Nearest Neighbors is the most intuitive, and is what we will use in this course. In essence, it makes its predictions by taking a majority vote of its nearest neighbors. All of our training samples are internally represented as vectors in a multidimensional feature space, each with a label ('democrat'/'republican'). When we want to predict the party affiliation of a new sample, we look at the party affiliations of the points closest to our new sample. If we look at 5 neighbors, and 3 of them are republican, while 2 are democrat, we predict that our new sample will be a republican.
+
+Let's make a prediction using 5 neighbors.
+
+*** =instructions
+- All you need to do is specify how many neighbors you want to train the model on
+- Observe how we first train the model with the `fit` function, and then evaluate it on the test data
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+import numpy as np
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+```
+
+*** =sample_code
+```{python}
+```{python}
+# Import train_test_split from sklearn.cross_validation
+from sklearn.cross_validation import train_test_split
+
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+#Create the classifier with 5 neighbors
+knn = KNeighborsClassifier(n_neighbors = _)
+
+#Fit the classifier to the training data (X_train and y_train)
+knn.fit(X_train, y_train)
+
+# Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
+accuracy = accuracy_score(y_test, knn.predict(X_test))
+
+```
+
+```
+*** =solution
+```{python}
+# Import train_test_split from sklearn.cross_validation
+from sklearn.cross_validation import train_test_split
+
+#Import KNeighborsClassifier from sklearn.neighbors
+from sklearn.neighbors import KNeighborsClassifier
+
+#Import accuracy_score from sklearn.metrics
+from sklearn.metrics import accuracy_score
+
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X_train, y_train)
+accuracy = accuracy_score(y_test, knn.predict(X_test))
+
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Great work!")
+```
