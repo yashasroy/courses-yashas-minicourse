@@ -5,11 +5,11 @@ attachments :
   slides_link : https://s3.amazonaws.com/assets.datacamp.com/course/teach/slides_example.pdf
 
 --- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
-## Machine Learning: An Introduction
+## Machine Learning: What is it?
 
 The TL;DR Version: Learning from past data to make future predictions
 
-Have you been reading or hearing a lot about Machine Learning making waves in different industries, want to get learn more about this field, but don't know where or how to get started? You've come to the right place. This short course will immerse into the world of machine learning. The only background knowledge expected is a basic familiarity with Pandas, the Python data analysis library. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
+Have you been reading or hearing a lot about Machine Learning making waves in different industries, want to get learn more about this field, but don't know where or how to get started? You've come to the right place. This short course will immerse you into the world of machine learning. The only background knowledge expected is a basic familiarity with Pandas, the Python data analysis library. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
 
 First, what is machine learning? In its broadest sense, it is the art and science of getting computers to act without being explicitly programmed. It can be divided into supervised and unsupervised learning. This course focuses on the former. In supervised machine learning, the computer learns from historical data to make future predictions. These predictions can be continuous (What is the value of this stock going to be tomorrow?) or categorical (Is the value of this stock going to go up or down tomorrow?) The latter is known as classification, while the former is known as regression. In this course, we're going to classify the party a Congressman belongs to.
 
