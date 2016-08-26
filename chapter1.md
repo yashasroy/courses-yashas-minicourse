@@ -204,7 +204,7 @@ For this purpose, we hold out some data for model evaluation. We train our model
 - Import `train_test_split` from `sklearn.cross_validation`.
 - Create an array, y, for the response variable ('party').
 - Create the feature vector, X, by dropping the response variable 'party'
-- Split the data so that 75% (0.75) is available for training and 25% (0.25) is held out for testing.
+- Split the data so that 60% (0.6) is available for training and 40% (0.4) is held out for testing.
 
 *** =hint
 
@@ -296,7 +296,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 ```
 
 *** =sample_code
@@ -375,7 +375,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 ```
 
 *** =sample_code
@@ -448,7 +448,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
 ```
 
 *** =sample_code
@@ -547,7 +547,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
