@@ -321,7 +321,6 @@ accuracy = accuracy_score(y_test, knn.predict(X_test))
 
 ```
 
-```
 *** =solution
 ```{python}
 # Import train_test_split from sklearn.cross_validation
