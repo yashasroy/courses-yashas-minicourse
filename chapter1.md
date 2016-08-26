@@ -1,97 +1,34 @@
 ---
 title       : An Introduction to Classification
-description : Insert the chapter description here
+description : Training, Testing, and Evaluating a Simple Binary Classifier on Congressional Voting Data
 attachments :
   slides_link : https://s3.amazonaws.com/assets.datacamp.com/course/teach/slides_example.pdf
 
---- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
-## A really bad movie
-
-Have a look at the plot that showed up in the viewer to the right. Which type of movies have the worst rating assigned to them?
-
-*** =instructions
-- 435 features, 16 samples
-- 17 features, 435 samples
-- 16 features, 17 samples 
-- 16 features, 435 samples
-
-*** =hint
-Have a look at the plot. Do you see a trend in the dots?
-
-*** =pre_exercise_code
-```{r}
-# The pre exercise code runs code to initialize the user's workspace.
-# You can use it to load packages, initialize datasets and draw a plot in the viewer
-
-import pandas as pd
-
-df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
-                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
-                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
-                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
-
-df.head(5)
-print(df.head(5))
-```
-
-*** =sample_code
-```{python}
-# What are the dimensions of this dataframe?
-df.___
-
-# How many samples does this dataset have?
-df.___[__]
-
-# How many features does this dataset have?
-df.___[__]
-
-# List out the features of this dataset
-df.___
-
-```
-
-*** =solution
-```{python}
-# What are the dimensions of this dataframe?
-df.shape
-
-# How many samples does this dataset have?
-df.shape[0]
-
-# How many features does this dataset have?
-df.shape[1]
-
-# List out the features of this dataset
-df.columns
-```
-
-*** =sct
-```{r}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
-
-msg_bad = "That is not correct!"
-msg_success = "Exactly! There are 16 features and 435 samples."
-test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
-```
-
 --- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
-## Plot the movies yourself
+## Machine Learning 
 
-Do you remember the plot of the last exercise? Let's make an even cooler plot!
+The TL;DR Version: Learning from past data to make future predictions
 
-A dataset of movies, `movies`, is available in the workspace.
+Have you been reading or hearing a lot about Machine Learning making waves in different industries, want to get learn more about this field, but don't know where or how to get started? You've come to the right place. This short course will immerse into the world of machine learning. The only background knowledge expected is a basic familiarity with Pandas, the Python data analysis library. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
+
+First, what is machine learning? In its broadest sense, it is the art and science of getting computers to act without being explicitly programmed. It can be divided into supervised and unsupervised learning. This course focuses on the former. In supervised machine learning, the computer learns from historical data to make future predictions. These predictions can be continuous (What is the value of this stock going to be tomorrow?) or categorical (Is the value of this stock going to go up or down tomorrow?) The latter is known as classification, while the former is known as regression. In this course, we're going to classify the party a Congressman belongs to.
+
+Supervised machine learning models makes predictions based on features in the data. These features represent some measurable property relevant to the data. In our case, the features consist of the voting decisions made by Congressmen on particular issues. Strong features lead to better performing models. Say we want to predict party affiliation. Is it a reasonable hypothesis to assume that democrats and republicans vote differently on certain issues? If so, then having data about past voting records can be a useful set of features. Else, we would have to look at other data sources - maybe age or demographic information. Machine learning allows us to test different hypotheses on an unprecedented scale, and this is where it draws much of its power.
+
+Let's dive in. The dataset of Congressional voting records, `df`, has already been loaded into a pandas dataframe and is available in the workspace. If you want to learn how to import data in Python, refer to the relevant DataCamp course.
+
+Let's do some basic exploratory analysis to understand its structure.
 
 *** =instructions
-- The first function, `np.unique()`, uses the `unique()` function of the `numpy` package to get integer values for the movie genres. You don't have to change this code, just have a look!
-- Import `pyplot` in the `matplotlib` package. Set an alias for this import: `plt`.
-- Use `plt.scatter()` to plot `movies.runtime` onto the x-axis, `movies.rating` onto the y-axis and use `ints` for the color of the dots. You should use the first and second positional argument, and the `c` keyword.
-- Show the plot using `plt.show()`.
+- Use the pandas function `df.shape`, to display the dimensionality of the dataset. This tells us how many samples there are in the data (number of rows), and how many columns.
+- Practice indexing with pandas to access the first number returned `df.shape`. This is the number of samples.
+- Now return the other number. This is the number of columns. 
+- To return the names of the columns, use the function `df.columns`.
+
 
 *** =hint
-- You don't have to program anything for the first instruction, just take a look at the first line of code.
-- Use `import ___ as ___` to import `matplotlib.pyplot` as `plt`.
-- Use `plt.scatter(___, ___, c = ___)` for the third instruction.
-- You'll always have to type in `plt.show()` to show the plot you created.
+- Fill in the blanks with the appropriate pandas function and index values. 
+- Remember, python, and by extension, pandas, is 0 indexed!
 
 *** =pre_exercise_code
 ```{python}
@@ -114,10 +51,10 @@ df._
 # How many samples does this dataset have?
 df._[_]
 
-# How many features does this dataset have?
+# How many columns does this dataset have?
 df._[_]
 
-# List out the features of this dataset
+# List out the columns of this dataset
 df._
 
 ```
@@ -145,3 +82,175 @@ df.columns
 
 success_msg("Great work!")
 ```
+--- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
+## What did we learn frome the previous excercise?
+
+What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we?
+
+*** =instructions
+- 435 features, 16 samples
+- 17 features, 435 samples
+- 16 features, 17 samples 
+- 16 features, 435 samples
+
+*** =hint
+Remember, the number of columns does not equal the number of features! One of the columns represents the target variable (republican/democrat). 
+
+*** =pre_exercise_code
+```{r}
+# The pre exercise code runs code to initialize the user's workspace.
+# You can use it to load packages, initialize datasets and draw a plot in the viewer
+
+import pandas as pd
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+print(df.head())
+```
+
+*** =sct
+```{r}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+msg_bad = "That is not correct!"
+msg_success = "Exactly! There are 16 features and 435 samples."
+test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
+```
+
+--- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
+## But wait! Missing values!
+
+As you saw in the previous exercise, we do not know how the votes of certain Congressmen on certain issues. These are represented by the '?' instead of a 'yes' ('y') or a 'no' ('n'). Do we just delete these rows? That would throw away most of our data! Let's instead develop a reasonable strategy to fill in these missing values (the technical term is imputation). This is where domain knowledge comes in handy. For our purposes, let's replace the '?'s with the probability of all other representatives voting 'yes' on that particular issue.  
+
+Machine learning algorithms take in numeric values. A 'yes' or a 'no' is not numeric: Let's convert the 'y's to 1s and the 'n's to 0s.
+
+*** =instructions
+- Replace all the ys with 1s.
+- Replace all the ns with 0s.
+- Replace all the ?s with NaNs (This is an efficient way to internally represent missing data, and allows us to impute more easily)
+- Use the 'fillna' function to replace the NaNs with the mean. 
+
+*** =hint
+- Do not be intimidated by the last line of code: We are just filling in the missing values (with `fillna`) with the average of all votes on that issue (with the `mean` function).
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+```
+
+*** =sample_code
+```{python}
+# Change all the y's to 1's
+df[df == 'y'] = _
+
+# Change all the n's to 0's
+df[df == '_'] = _
+
+# Change the ?'s to NaNs
+df[df == '_'] = np.nan
+
+# Now, impute the NaNs with the mean of each column
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x._()))
+
+```
+
+*** =solution
+```{python}
+# Change all the y's to 1's
+df[df == 'y'] = 1
+
+# Change all the n's to 0's
+df[df == 'n'] = 0
+
+# Change the ?'s to NaNs
+df[df == '?'] = np.nan
+
+# Now, impute the NaNs with the mean of each column
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+
+
+success_msg("Great work!")
+```
+--- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
+## Training and Testing
+
+Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting records to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
+
+We don't want to feed it all the data, however. We need it to be able to generalize well to unseen future data. Otherwise, it leans too heavily on the idiosyncracies (or noise) in the training data, and fails to make good predictions when unseen data comes in.
+
+For this purpose, we hold out some data for model evaluation. We train our model using the training data, and evaluate it on the testing data. Scikit-learn provides us a useful `train_test_split` function for this.
+
+*** =instructions
+- Import `train_test_split` from `sklearn.cross_validation`.
+- Split the data so that 75% (0.75) is available for training and 25% (0.25) is held out for testing.
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+```
+
+*** =sample_code
+```{python}
+# Import train_test_split from sklearn.cross_validation
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['_']
+X = df.drop('_', axis=1)
+
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
+
+```
+*** =solution
+```{python}
+# Import train_test_split from sklearn.cross_validation
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Great work!")
+```
+
