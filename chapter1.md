@@ -411,7 +411,7 @@ accuracy = accuracy_score(y_test, knn.predict(X_test))
 
 success_msg("Great work!")
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:9a56717464
+--- type:NormalExercise lang:python xp:100 skills:1 key:46064f2b22
 ## How many neighbors to use?
 
 Run the code to to see how the accuracy score varies with different values of k.
