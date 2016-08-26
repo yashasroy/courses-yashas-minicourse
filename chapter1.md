@@ -83,7 +83,7 @@ df.columns
 success_msg("Great work!")
 ```
 --- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
-## What did we learn frome the previous excercise?
+## What did we learn frome the previous exercise?
 
 What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
 
@@ -242,6 +242,7 @@ X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
 *** =solution
 ```{python}
 # Import train_test_split from sklearn.cross_validation
+from sklearn.cross_validation import train_test_split
 
 # Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
 y = df['party']
