@@ -193,7 +193,7 @@ success_msg("Great work!")
 --- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
 ## Train and Test Split
 
-Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting records to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
+Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting decisions to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
 
 We don't want to feed it all the data, however. We need it to be able to generalize well to unseen future data. Otherwise, it leans too heavily on the idiosyncracies (or noise) in the training data, and fails to make good predictions when unseen data comes in.
 
