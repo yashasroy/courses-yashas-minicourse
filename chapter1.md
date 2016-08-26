@@ -141,8 +141,7 @@ df.columns
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-test_function("df.columns",
-              incorrect_msg = "You didn't use `plt.scatter()` correctly, have another look at the instructions.")
+
 
 success_msg("Great work!")
 ```
