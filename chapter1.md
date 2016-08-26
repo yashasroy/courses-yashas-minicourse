@@ -31,6 +31,7 @@ df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voti
                                      'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
 
 df.head(25)
+print df.shape
 ```
 
 *** =sample_code
