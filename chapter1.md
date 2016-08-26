@@ -640,8 +640,8 @@ def always_gop(X):
 acc_always_dem = accuracy_score(always_dem(X_test),y_test)
 acc_always_gop = accuracy_score(always_gop(X_test),y_test)
 
-print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
-print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+print("Accuracy of model that predicts always Dem = ") + str(acc_always_dem)
+print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 ```
 
 *** =sample_code
@@ -687,8 +687,8 @@ def always_gop(X):
 acc_always_dem = accuracy_score(always_dem(X_test),y_test)
 acc_always_gop = accuracy_score(always_gop(X_test),y_test)
 
-print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
-print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+print("Accuracy of model that predicts always Dem = ") + str(acc_always_dem)
+print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 ```
 
 *** =solution
@@ -734,8 +734,8 @@ def always_gop(X):
 acc_always_dem = accuracy_score(always_dem(X_test),y_test)
 acc_always_gop = accuracy_score(always_gop(X_test),y_test)
 
-print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
-print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+print("Accuracy of model that predicts always Dem = ") + str(acc_always_dem)
+print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 ```
 *** =sct
 ```{python}
