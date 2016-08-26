@@ -257,7 +257,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
 
 success_msg("Great work!")
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
+--- type:NormalExercise lang:python xp:100 skills:1 key:b0329a110c
 ## K Nearest Neighbors: A simple classifier
 
 Of all the numerous classification algorithms that are used today, K Nearest Neighbors is the most intuitive, and is what we will use in this course. In essence, it makes its predictions by taking a majority vote of its nearest neighbors. All of our training samples are internally represented as vectors in a multidimensional feature space, each with a label ('democrat'/'republican'). When we want to predict the party affiliation of a new sample, we look at the party affiliations of the points closest to our new sample. If we look at 5 neighbors, and 3 of them are republican, while 2 are democrat, we predict that our new sample will be a republican.
