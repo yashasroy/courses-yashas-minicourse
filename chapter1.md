@@ -10,10 +10,10 @@ attachments :
 Have a look at the plot that showed up in the viewer to the right. Which type of movies have the worst rating assigned to them?
 
 *** =instructions
-- Long movies, clearly
-- Short movies, clearly
-- Long movies, but the correlation seems weak
-- Short movies, but the correlation seems weak
+- 435 features, 16 samples
+- 17 features, 435 samples
+- 16 features, 17 samples 
+- 16 features, 435 samples
 
 *** =hint
 Have a look at the plot. Do you see a trend in the dots?
@@ -24,7 +24,6 @@ Have a look at the plot. Do you see a trend in the dots?
 # You can use it to load packages, initialize datasets and draw a plot in the viewer
 
 import pandas as pd
-import matplotlib.pyplot as plt
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
@@ -34,12 +33,43 @@ df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voti
 df.head(25)
 ```
 
+*** =sample_code
+```{python}
+# What are the dimensions of this dataframe?
+df.___
+
+# How many samples does this dataset have?
+df.___[__]
+
+# How many features does this dataset have?
+df.___[__]
+
+# List out the features of this dataset
+df.___
+
+```
+
+*** =solution
+```{python}
+# What are the dimensions of this dataframe?
+df.shape
+
+# How many samples does this dataset have?
+df.shape[0]
+
+# How many features does this dataset have?
+df.shape[1]
+
+# List out the features of this dataset
+df.columns
+```
+
 *** =sct
 ```{r}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
 msg_bad = "That is not correct!"
-msg_success = "Exactly! The correlation is very weak though."
+msg_success = "Exactly! There are 16 features and 435 samples."
 test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
 ```
 
