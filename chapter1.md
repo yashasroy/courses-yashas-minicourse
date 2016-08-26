@@ -561,8 +561,8 @@ for k in ks:
     
 
 plt.plot(ks, scores)
-plt.xlabel("Number of nearest neighbors");
-
+plt.xlabel("Number of nearest neighbors")
+plt.show();
 
 ```
 
