@@ -109,16 +109,16 @@ df.rename(columns = {'index': 'party'}, inplace = True)
 *** =sample_code
 ```{python}
 # What are the dimensions of this dataframe?
-df.___
+df._
 
 # How many samples does this dataset have?
-df.___[__]
+df._[_]
 
 # How many features does this dataset have?
-df.___[__]
+df._[_]
 
 # List out the features of this dataset
-df.___
+df._
 
 ```
 
@@ -141,7 +141,7 @@ df.columns
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-test_function("pandas.columns",
+test_function("df.columns",
               incorrect_msg = "You didn't use `plt.scatter()` correctly, have another look at the instructions.")
 
 success_msg("Great work!")
