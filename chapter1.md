@@ -1,5 +1,5 @@
 ---
-title       : Insert the chapter title here
+title       : An Introduction to Classification
 description : Insert the chapter description here
 attachments :
   slides_link : https://s3.amazonaws.com/assets.datacamp.com/course/teach/slides_example.pdf
@@ -140,19 +140,19 @@ df.columns
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-test_function("pandas.shape",
+test_function("pd.shape",
               not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
               incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
               
-test_function("pandas.shape[0]",
+test_function("pd.shape[0]",
               not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
               incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
               
-test_function("pandas.shape[1]",
+test_function("pd.shape[1]",
               not_called_msg = "Don't remove the call of `np.unique` to define `ints`.",
               incorrect_msg = "Don't change the call of `np.unique` to define `ints`.")
 
-test_function("pandas.columns",
+test_function("pd.columns",
               incorrect_msg = "You didn't use `plt.scatter()` correctly, have another look at the instructions.")
 
 success_msg("Great work!")
