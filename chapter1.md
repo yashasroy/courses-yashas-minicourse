@@ -604,6 +604,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cross_validation import train_test_split
+from sklearn.metrics import accuracy_score
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
@@ -625,53 +626,10 @@ X = df.drop('party', axis=1)
 # Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
 
-fig,ax = plt.subplots()
-ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
-ax.set_xticks([0,1])
-ax.set_xticklabels(('Democrat','Republican') )
-ax.grid(True)
-
-def always_dem(X):
-    return ['democrat']*len(X)
-def always_gop(X):
-    return ['republican']*len(X)
-
-
-acc_always_dem = accuracy_score(always_dem(X_test),y_test)
-acc_always_gop = accuracy_score(always_gop(X_test),y_test)
-
-print("Accuracy of model that predicts always Dem = ") + str(acc_always_dem)
-print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 ```
 
 *** =sample_code
 ```{python}
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.cross_validation import train_test_split
-
-df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
-                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
-                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
-                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
-
-df = df.reset_index()
-df.rename(columns = {'index': 'party'}, inplace = True)
-
-df[df == 'y'] = 1
-df[df == 'n'] = 0
-df[df == '?'] = np.nan
-df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
-
-# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
-y = df['party']
-X = df.drop('party', axis=1)
-
-# Split the data into a training and testing set, such that the training set size is 60% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
-
 fig,ax = plt.subplots()
 ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
 ax.set_xticks([0,1])
@@ -693,34 +651,6 @@ print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 
 *** =solution
 ```{python}
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.cross_validation import train_test_split
-from sklearn.metrics import accuracy_score
-
-
-df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
-                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
-                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
-                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
-
-df = df.reset_index()
-df.rename(columns = {'index': 'party'}, inplace = True)
-
-df[df == 'y'] = 1
-df[df == 'n'] = 0
-df[df == '?'] = np.nan
-df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
-
-# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
-y = df['party']
-X = df.drop('party', axis=1)
-
-# Split the data into a training and testing set, such that the training set size is 60% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
-
 fig,ax = plt.subplots()
 ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
 ax.set_xticks([0,1])
