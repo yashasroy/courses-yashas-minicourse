@@ -30,8 +30,8 @@ df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voti
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
                                      'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
 
-df.head(25)
-print df.shape
+df.head(5)
+print df.columns
 ```
 
 *** =sample_code
