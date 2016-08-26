@@ -490,6 +490,90 @@ plt.xlabel("Number of nearest neighbors");
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-success_msg("Do you see how the accuracy varies with the number of neighbors?")
+success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
 ```
+
+--- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
+## Overfitting, Underfitting, and the Bias-Variance Tradeoff
+
+As you can see, when the number of neighbors are either too high or too low, accuracy suffers. Why is this?
+
+Remember our motivation for splitting the data into training and testing sets: We want our model to generalize well to unseen data.
+
+Now consider what happens when we fit a model that considers only the next nearest neighbor. Such a model ends up being excessively complicated, and fits too closely to the training data. This is known as overfitting, where the model fits to the noise in the data instead of capturing the underlying pattern. On the other end of the spectrum is underfitting. What happens when we look at, say, the 100 nearest neighbors? Such a model can be too simple - it fails to capture the underlying pattern in the data, and is just as poor at generalizing.
+
+We want to find a balance between underfitting and overfitting. Our ideal model is complicated enough to capture the intricacies of the training data, but doesn't rely excessively on the idiosyncracies of the training data: It is simple enough such that when new data comes in, it can make strong predictions based on the underlying relationships it has captured. Trying to find this balance is known as the bias-variance tradeoff.
+
+An overfit model, when tested on new data, can provide wildly varying results when run repeatedly. An underfit model, on the other hand, is too simple - it provides similar (incorrect) results when run each time. A useful analogy to understand this is a dart board. A highly biased model will have darts that are off target, but hit a similar location each time. A model with high variance will have darts that are all over the board, sometimes on target (by chance), and most of the times off target.
+
+It is a tradeoff because to add model complexity is to increase variance and reduce bias, while to reduce model complexity (and resulting overfitting) is to increase bias while reducing variance.
+
+Consider the scenario in which you suspect your model is overfit. Where does it fall on the bias-variance spectrum?
+
+*** =instructions
+- High bias, low variance
+- Medium bias, medium variance
+- Overfitting is unrelated to bias-variance
+- Low bias, high variance
+
+*** =hint
+
+*** =pre_exercise_code
+```{python}
+# The pre exercise code runs code to initialize the user's workspace.
+# You can use it to load packages, initialize datasets and draw a plot in the viewer
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+scores = []
+ks = range(1, 21)
+for k in ks:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(X_train, y_train)
+    score = accuracy_score(y_test, knn.predict(X_test))
+    scores.append(score)
+    
+
+plt.plot(ks, scores)
+plt.xlabel("Number of nearest neighbors");
+
+
+```
+
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+msg_bad = "That is not correct!"
+msg_success = "Exactly! Overfit models exhibit high variance and low bias"
+test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
+```
+
+
 
