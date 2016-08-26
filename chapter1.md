@@ -448,7 +448,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 42)
 ```
 
 *** =sample_code
@@ -547,7 +547,7 @@ y = df['party']
 X = df.drop('party', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 42)
 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
