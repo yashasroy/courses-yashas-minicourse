@@ -235,7 +235,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 y = df['_']
 X = df.drop('_', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
 
 ```
@@ -248,8 +248,8 @@ from sklearn.cross_validation import train_test_split
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+# Split the data into a training and testing set, such that the training set size is 60% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 
 ```
 *** =sct
@@ -295,7 +295,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 ```
 
@@ -375,7 +375,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 ```
 
@@ -449,7 +449,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
 ```
 
@@ -548,7 +548,7 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 75% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
 
 from sklearn.neighbors import KNeighborsClassifier
