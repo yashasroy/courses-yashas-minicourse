@@ -503,7 +503,9 @@ As you can see, when the number of neighbors are either too high or too low, acc
 
 Remember our motivation for splitting the data into training and testing sets: We want our model to generalize well to unseen data.
 
-Now consider what happens when we fit a model that considers only the next nearest neighbor. Such a model ends up being excessively complicated, and fits too closely to the training data. This is known as overfitting, where the model fits to the noise in the data instead of capturing the underlying pattern. On the other end of the spectrum is underfitting. What happens when we look at, say, the 100 nearest neighbors? Such a model can be too simple - it fails to capture the underlying pattern in the data, and is just as poor at generalizing.
+Now consider what happens when we fit a model that considers only the next nearest neighbor. Such a model ends up being excessively complicated, and fits too closely to the training data. This is known as overfitting, where the model fits to the noise in the data instead of capturing the underlying pattern. If your results look suspiciously good (98% accuracy, say), it is likely the model is overfitting to the data it has been trained on. High accuracy on training data and low accuracy on test data is the hallmark of an overfit model.
+
+On the other end of the spectrum is underfitting. What happens when we look at, say, the 100 nearest neighbors? Such a model can be too simple - it fails to capture the underlying pattern in the data, and is just as poor at generalizing.
 
 We want to find a balance between underfitting and overfitting. Our ideal model is complicated enough to capture the intricacies of the training data, but doesn't rely excessively on the idiosyncracies of the training data: It is simple enough such that when new data comes in, it can make strong predictions based on the underlying relationships it has captured. Trying to find this balance is known as the bias-variance tradeoff.
 
