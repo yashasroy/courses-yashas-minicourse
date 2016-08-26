@@ -334,7 +334,7 @@ from sklearn.neighbors import KNeighborsClassifier
 #Import accuracy_score from sklearn.metrics
 from sklearn.metrics import accuracy_score
 
-knn = KNeighborsClassifier(n_neighbors=k)
+knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X_train, y_train)
 accuracy = accuracy_score(y_test, knn.predict(X_test))
 
