@@ -493,7 +493,7 @@ plt.xlabel("Number of nearest neighbors");
 success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
 ```
 
---- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
+--- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:1c7935280e
 ## Overfitting, Underfitting, and the Bias-Variance Tradeoff
 
 As you can see, when the number of neighbors are either too high or too low, accuracy suffers. Why is this?
