@@ -579,6 +579,170 @@ msg_bad = "That is not correct!"
 msg_success = "Exactly! Overfit models exhibit high variance and low bias"
 test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
 ```
+--- type:NormalExercise lang:python xp:100 skills:1 key:46064f2b22
+## Imbalanced Data and the Pitfalls of Accuracy
+
+In many domains, classes can be severely imbalanced. Even in this dataset, as you can see on the right, there is not a 50/50 split between democrats and republicans: There are more democrats than there are republicans. At the very least, for a machine learning model to have any utility, accuracy must be higher than 50%, else we would be better of randomly guessing.
+
+Consider an application of machine learning to medicine, where we're trying to predict whether or not a given patient has cancer. This can have serious repercussions if done incorrectly. Moreover, the proportion of the population that has cancer is miniscule compared to the proportion that does not. The class imbalance may be such that 99% of the training examples do not have cancer, while 1% do. This is not ideal - for our models to perform well, they need adequate examples from each class. To account for severe imbalances, commonly used techniques involve oversampling the underrepresented class, or downsampling the overrepresented class. These techniques are beyond the scope of this course but worth keeping in mind.
+
+Another issue that comes up when dealing with imbalanced classes is choice of metric. Accuracy, in these cases, is redundant. 99% accuracy here is meaningless, because we could very well build a model that naively predicts every patient as not having cancer, and it would be 99% accurate. 
+
+We therefore need to rely on more thoughtful metrics. In the next exercise, we will begin looking at such metrics, starting with precision and recall, also known as positive predictive value and sensitivity.
+
+
+*** =instructions
+- Run the code and look at how class imbalances can influence our interpretation of accuracy
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 60% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
+
+fig,ax = plt.subplots()
+ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
+ax.set_xticks([0,1])
+ax.set_xticklabels(('Democrat','Republican') )
+ax.grid(True)
+
+def always_dem(X):
+    return ['democrat']*len(X)
+def always_gop(X):
+    return ['republican']*len(X)
+
+
+acc_always_dem = accuracy_score(always_dem(X_test),y_test)
+acc_always_gop = accuracy_score(always_gop(X_test),y_test)
+
+print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
+print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+```
+
+*** =sample_code
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 60% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
+
+fig,ax = plt.subplots()
+ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
+ax.set_xticks([0,1])
+ax.set_xticklabels(('Democrat','Republican') )
+ax.grid(True)
+
+def always_dem(X):
+    return ['democrat']*len(X)
+def always_gop(X):
+    return ['republican']*len(X)
+
+
+acc_always_dem = accuracy_score(always_dem(X_test),y_test)
+acc_always_gop = accuracy_score(always_gop(X_test),y_test)
+
+print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
+print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+```
+
+*** =solution
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 60% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4, random_state = 42)
+
+fig,ax = plt.subplots()
+ax.bar([0,1],[(y=='democrat').sum(), (y=='republican').sum()],align='center')
+ax.set_xticks([0,1])
+ax.set_xticklabels(('Democrat','Republican') )
+ax.grid(True)
+
+def always_dem(X):
+    return ['democrat']*len(X)
+def always_gop(X):
+    return ['republican']*len(X)
+
+
+acc_always_dem = accuracy_score(always_dem(X_test),y_test)
+acc_always_gop = accuracy_score(always_gop(X_test),y_test)
+
+print "Accuracy of model that predicts always Dem = " + str(acc_always_dem)
+print "Accuracy of model that predicts always GOP = " + str(acc_always_gop)
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
+```
 
 
 
