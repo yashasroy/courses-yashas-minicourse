@@ -195,7 +195,7 @@ success_msg("Great work!")
 
 Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting decisions to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
 
-We don't want to feed it all the data, however. We need it to be able to generalize well to unseen future data. Otherwise, it leans too heavily on the idiosyncracies (or noise) in the training data, and fails to make good predictions when unseen data comes in.
+We don't want to feed it all the data, however. We need it to be able to generalize well to unseen future data. Otherwise, it leans too heavily on the idiosyncracies (or noise) in the training data, and fails to make good predictions when new data comes in.
 
 For this purpose, we hold out some data for model evaluation. We train our model using the training data, and evaluate it on the testing data. Scikit-learn provides us a useful `train_test_split` function for this.
 
