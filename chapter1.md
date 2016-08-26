@@ -411,4 +411,85 @@ accuracy = accuracy_score(y_test, knn.predict(X_test))
 
 success_msg("Great work!")
 ```
+--- type:NormalExercise lang:python xp:100 skills:1 key:9a56717464
+## How many neighbors to use?
+
+Run the code to to see how the accuracy score varies with different values of k.
+
+*** =instructions
+- Just run the provided code
+
+*** =hint
+
+
+*** =pre_exercise_code
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.cross_validation import train_test_split
+
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
+
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
+
+df[df == 'y'] = 1
+df[df == 'n'] = 0
+df[df == '?'] = np.nan
+df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
+
+# Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
+y = df['party']
+X = df.drop('party', axis=1)
+
+# Split the data into a training and testing set, such that the training set size is 75% of the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25)
+```
+
+*** =sample_code
+```{python}
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+scores = []
+ks = range(1, 21)
+for k in ks:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(Xtrain, ytrain)
+    score = accuracy_score(ytest, knn.predict(Xtest))
+    scores.append(score)
+    
+
+plt.plot(ks, scores)
+plt.xlabel("Number of nearest neighbors");
+```
+
+*** =solution
+```{python}
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+scores = []
+ks = range(1, 21)
+for k in ks:
+    knn = KNeighborsClassifier(n_neighbors=k)
+    knn.fit(Xtrain, ytrain)
+    score = accuracy_score(ytest, knn.predict(Xtest))
+    scores.append(score)
+    
+
+plt.plot(ks, scores)
+plt.xlabel("Number of nearest neighbors");
+```
+*** =sct
+```{python}
+# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+success_msg("Do you see how the accuracy varies with the number of neighbors?")
+```
 
