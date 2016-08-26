@@ -94,6 +94,8 @@ A dataset of movies, `movies`, is available in the workspace.
 
 *** =pre_exercise_code
 ```{python}
+import pandas as pd
+
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
