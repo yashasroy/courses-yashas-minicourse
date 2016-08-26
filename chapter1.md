@@ -85,7 +85,9 @@ success_msg("Great work!")
 
 What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
 
-On the right, the first few rows of the dataframe are displayed for you to get a understanding of what the data looks like.
+On the right, the first few rows of the dataframe are displayed for you to get a understanding of what the data looks like. Notice how in addition to the "yes" and "no" votes, there are also missing values represented by the "?".
+
+How many features and samples are in this dataframe? Refer to the previous exercise where we computed these values. And take care to note that the number of columns does not equal the number of features!
 
 *** =instructions
 - 435 features, 16 samples
