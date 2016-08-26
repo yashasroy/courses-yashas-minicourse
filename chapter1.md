@@ -579,7 +579,7 @@ msg_bad = "That is not correct!"
 msg_success = "Exactly! Overfit models exhibit high variance and low bias"
 test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:46064f2b22
+--- type:NormalExercise lang:python xp:100 skills:1 key:24fd70b5aa
 ## Imbalanced Data and the Pitfalls of Accuracy
 
 In many domains, classes can be severely imbalanced. Even in this dataset, as you can see on the right, there is not a 50/50 split between democrats and republicans: There are more democrats than there are republicans. At the very least, for a machine learning model to have any utility, accuracy must be higher than 50%, else we would be better of randomly guessing.
