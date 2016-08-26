@@ -460,8 +460,8 @@ scores = []
 ks = range(1, 21)
 for k in ks:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(Xtrain, ytrain)
-    score = accuracy_score(ytest, knn.predict(Xtest))
+    knn.fit(X_train, y_train)
+    score = accuracy_score(y_test, knn.predict(X_test))
     scores.append(score)
     
 
@@ -478,8 +478,8 @@ scores = []
 ks = range(1, 21)
 for k in ks:
     knn = KNeighborsClassifier(n_neighbors=k)
-    knn.fit(Xtrain, ytrain)
-    score = accuracy_score(ytest, knn.predict(Xtest))
+    knn.fit(X_train, y_train)
+    score = accuracy_score(y_test, knn.predict(X_test))
     scores.append(score)
     
 
