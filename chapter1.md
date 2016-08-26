@@ -675,7 +675,7 @@ print("Accuracy of model that predicts always GOP = ") + str(acc_always_gop)
 
 success_msg("Proceed to see how the accuracy varies with different numbers of neighbors!")
 ```
---- type:NormalExercise lang:python xp:100 skills:1 key:24fd70b5aa
+--- type:NormalExercise lang:python xp:100 skills:1 key:b8f7dfe1c7
 ## Precision and Recall
 
 On the previous page, we delved into the pitfalls of using accuracy as a metric. Let's now take a step back and introduce the concept of a confusion matrix. 
