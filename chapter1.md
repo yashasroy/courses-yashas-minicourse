@@ -698,6 +698,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cross_validation import train_test_split
+from sklearn.metrics import accuracy_score
+
 
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
