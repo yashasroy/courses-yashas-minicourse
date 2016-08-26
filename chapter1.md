@@ -94,10 +94,13 @@ A dataset of movies, `movies`, is available in the workspace.
 
 *** =pre_exercise_code
 ```{python}
-import pandas as pd
-movies = pd.read_csv("http://s3.amazonaws.com/assets.datacamp.com/course/introduction_to_r/movies.csv")
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
+                header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
+                                     'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
+                                     'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
 
-import numpy as np
+df = df.reset_index()
+df.rename(columns = {'index': 'party'}, inplace = True)
 ```
 
 *** =sample_code
