@@ -23,7 +23,6 @@ Let's do some basic exploratory analysis to understand its structure.
 - Now return the other number. This is the number of columns. 
 - To return the names of the columns, use the function `df.columns`.
 
-
 *** =hint
 - Fill in the blanks with the appropriate pandas function and index values. 
 - Remember, python, and by extension, pandas, is 0 indexed!
@@ -185,8 +184,6 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
-
-
 
 success_msg("Great work!")
 ```
