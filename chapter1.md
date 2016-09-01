@@ -9,9 +9,9 @@ attachments :
 
 This short course will immerse you into the world of machine learning. Background knowledge expected is a basic familiarity with Pandas, the Python data analysis library. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
 
-First, what is machine learning? In its broadest sense, it is the art and science of getting computers to act without being explicitly programmed. It can be divided into supervised and unsupervised learning. This course focuses on the former. In supervised machine learning, the computer learns from historical data to make future predictions. These predictions can be continuous (What is the value of this stock going to be tomorrow?) or categorical (Is the value of this stock going to go up or down tomorrow?) The latter is known as classification, while the former is known as regression. In this course, we're going to classify the party a Congressman belongs to.
+First, what is machine learning? In its broadest sense, it is the art and science of getting computers to act without being explicitly programmed. This course focuses on what is known as supervised machine learning, in which the computer learns from labeled historical data to make future predictions that may either be continuous (What is the value of this stock going to be tomorrow?) or categorical (Is the value of this stock going to go up or down tomorrow?). The latter is called classification, while the former is regression. In our case, the predictions are categorical: Based on his/her votes, is this Congressman a Democrat or a Republican? Therefore, our problem is one of classification and not regression.
 
-Supervised machine learning models makes predictions based on features in the data. These features represent some measurable property relevant to the data. In our case, the features consist of the voting decisions made by Congressmen on particular issues. Strong features lead to better performing models. Say we want to predict party affiliation. Is it a reasonable hypothesis to assume that democrats and republicans vote differently on certain issues? If so, then having data about past voting records can be a useful set of features. Else, we would have to look at other data sources - maybe age or demographic information. Machine learning allows us to test different hypotheses on an unprecedented scale, and this is where it draws much of its power.
+Supervised machine learning models makes predictions based on features that represent some measurable properties relevant to the data.  In our case, the features consist of the voting decisions made by Congressmen on particular issues. Strong features lead to better performing models. Say we want to predict party affiliation. Is it a reasonable hypothesis to assume that democrats and republicans vote differently on certain issues? If so, then having data about past voting records can be a useful set of features. Else, we would have to look at other data sources - maybe age or demographic information. Machine learning allows us to test different hypotheses on an unprecedented scale, and this is where it draws much of its power.
 
 Let's dive in. The dataset of Congressional voting records, `df`, has already been loaded into a pandas dataframe and is available in the workspace. If you want to learn how to import data in Python, refer to the relevant DataCamp course.
 
@@ -64,18 +64,27 @@ print(df.shape)
 # How many samples does this dataset have?
 print(df.shape[0])
 
-# How many features does this dataset have?
+# How many columns does this dataset have?
 print(df.shape[1])
 
-# List out the features of this dataset
+# List out the columns of this dataset
 print(df.columns)
 ```
 
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+msg = "Make sure to print out the dimensions of `df` like this: `print(df.shape)`."
+test_function("print", 1, incorrect_msg = msg)
 
+msg = "Make sure to print out the number of samples in `df` like this: `print(df.shape[0])`."
+test_function("print", 2, incorrect_msg = msg)
 
+msg = "Make sure to print out the number of samples in `df` like this: `print(df.shape[1])`."
+test_function("print", 3, incorrect_msg = msg)
+
+msg = "Make sure to print out the number of samples in `df` like this: `print(df.columns)`."
+test_function("print", 4, incorrect_msg = msg)
 
 success_msg("Great work!")
 ```
@@ -116,17 +125,23 @@ print(df.head())
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
-msg_bad = "That is not correct!"
+msg1 = "That is not correct! We have more than 16 samples."
+msg2 = "That is not correct! Is the number of features equal to the number of columns?"
+msg3 = "That is not correct! The number of samples is equal to the number of rows, not columns."
 msg_success = "Exactly! There are 16 features and 435 samples."
-test_mc(4, [msg_bad, msg_bad, msg_bad, msg_success])
+test_mc(4, [msg1, msg2, msg3, msg_success])
 ```
 
 --- type:NormalExercise lang:python xp:100 skills:1 key:fad5659252
 ## But wait! Missing values!
 
-As you saw in the previous exercise, we do not know how the votes of certain Congressmen on certain issues. These are represented by the '?' instead of a 'yes' ('y') or a 'no' ('n'). Do we just delete these rows? That would throw away most of our data! Let's instead develop a reasonable strategy to fill in these missing values (the technical term is imputation). This is where domain knowledge comes in handy. For our purposes, let's replace the '?'s with the probability of all other representatives voting 'yes' on that particular issue.  
+As you saw in the previous exercise, we do not know the votes of certain Congressmen on certain issues. These are represented by the '?' instead of a 'yes' ('y') or a 'no' ('n'). Do we just delete these rows? That would throw away most of our data! Let's instead develop a reasonable strategy to fill in these missing values (the technical term is imputation). This is where domain knowledge comes in handy. For our purposes, let's replace the '?'s with the probability of all other representatives voting 'yes' on that particular issue.  
 
 Machine learning algorithms take in numeric values. A 'yes' or a 'no' is not numeric: Let's convert the 'y's to 1s and the 'n's to 0s.
+
+Recall that in supervised machine learning, the model learns from labeled data to make future predictions on unlabeled data. Here, the party affiliation ('Democrat' or 'Republican') represents the labels. If our model is successful (and we will explore in future lessons what constitutes 'successful'), then when unlabeled data about voting information comes in, our model will use what it has learned from the labeled data to assign labels ('Democrat' or 'Republican') to the new, unlabeled, data points.
+
+In unsupervised machine learning, there is no labeled data. There is no initial learning, or 'supervision', in which the model looks at past labeled data to try and capture underlying patterns. This is where the terms "Supervised" and "Unsupervised" come in.
 
 *** =instructions
 - Replace all the ys with 1s.
@@ -190,11 +205,13 @@ success_msg("Great work!")
 --- type:NormalExercise lang:python xp:100 skills:1 key:2b648b3e6b
 ## Train and Test Split
 
-Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting decisions to party affiliation. The historical data we feed into the model for it to learn from is known as training data.
+Here, we are doing supervised machine learning. We want our model to learn from past voting records to approximate a function that effectively maps future voting decisions to party affiliation. The historical, labeled data we feed into the model for it to learn from is known as training data.
 
 We don't want to feed it all the data, however. We need it to be able to generalize well to unseen future data. Otherwise, it leans too heavily on the idiosyncracies (or noise) in the training data, and fails to make good predictions when new data comes in.
 
 For this purpose, we hold out some data for model evaluation. We train our model using the training data, and evaluate it on the testing data. Scikit-learn provides us a useful `train_test_split` function for this.
+
+It is crucial to note that when testing, we do not want the model to be able to see the labels! This would be cheating. So we drop the response variable ('party', in our case) from the test data.
 
 
 *** =instructions
@@ -234,7 +251,6 @@ X = df.drop('_', axis=1)
 
 # Split the data into a training and testing set, such that the training set size is 60% of the data
 X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
-
 ```
 *** =solution
 ```{python}
@@ -252,6 +268,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+test_import("train_test_split")
 
 success_msg("Great work!")
 ```
