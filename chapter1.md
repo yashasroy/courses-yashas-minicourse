@@ -131,7 +131,6 @@ print(df.___)
 
 *** =sct
 ```{python}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
 msg1 = "That is not correct! We have more than 16 samples."
 msg2 = "That is not correct! Is the number of features equal to the number of columns?"
@@ -235,6 +234,8 @@ It is crucial to note that when testing, we do not want the model to be able to 
 ```{python}
 import pandas as pd
 import numpy as np
+from sklearn.cross_validation import train_test_split
+
 df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data',
                 header=None, names = ['infants', 'water', 'budget', 'physician', 'salvador', 'religious',
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
