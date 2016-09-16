@@ -277,7 +277,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
-test_import("train_test_split")
 
 success_msg("Great work!")
 ```
