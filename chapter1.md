@@ -438,10 +438,15 @@ success_msg("Great work!")
 --- type:NormalExercise lang:python xp:100 skills:1 key:46064f2b22
 ## How many neighbors to use?
 
-Run the code to to see how the accuracy score varies with different values of k.
+Code has been written on the right to visualize how the accuracy score varies with different values of k. The `matplotlib.pyplot` Python plotting library has been used for this purpose. To display a plot, we need to end each sequence of plotting statements with a `matplotlib.pyplot.show();`. Here, as is standard practice, `matplotlib.pyplot` has been imported as `plt` for convenience.
+
+To display the plot, type in `plt.show();` at the end of the code! You can also practice labeling your plots to be more descriptive. The x-axis has been labeled for you. Try labeling the y-axis or giving the plot a title!
 
 *** =instructions
-- Just run the provided code
+- To produce the plot, we first run `plt.plot(ks, scores)`. The values of k are on the X-axis, and the accuracy scores on the Y-axis. We then give our x-axis a label using `plot.xlabel("Number of nearest neighbors")` 
+- To display the plot, enter `plt.show();`
+- To label the y-axis, use `plt.ylabel("Label")`
+- To give the plot a title, use `plt.title("Title")`
 
 *** =hint
 
@@ -490,7 +495,11 @@ for k in ks:
     
 
 plt.plot(ks, scores)
-plt.xlabel("Number of nearest neighbors");
+plt.xlabel("Number of nearest neighbors")
+
+#Practice giving the y-axis a label, and the plot a title. When you are done, "show" the plot!
+
+plt.___;
 ```
 
 *** =solution
