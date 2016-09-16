@@ -15,7 +15,7 @@ Supervised machine learning models makes predictions based on features that repr
 
 Let's dive in. The dataset of Congressional voting records, `df`, has already been loaded into a pandas dataframe and is available in the workspace. If you want to learn how to import data in Python, refer to the relevant DataCamp course.
 
-Let's do some basic exploratory analysis to understand its structure.
+Let's do some basic exploratory analysis to understand its structure. 
 
 *** =instructions
 - Use the pandas function `df.shape`, to display the dimensionality of the dataset. This tells us how many samples there are in the data (number of rows), and how many columns.
@@ -93,7 +93,9 @@ success_msg("Great work!")
 
 What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
 
-On the right, the first few rows of the dataframe are displayed for you to get a understanding of what the data looks like. Notice how in addition to the "yes" and "no" votes, there are also missing values represented by the "?".
+Let's take a look at the first few rows of the dataframe to get a better understanding of what the data looks like. To do this, use the pandas function `head` like so: `[dataframe name].head()`. Here, the dataframe has been loaded into the workspace as `df`.
+
+Once you print out the first few rows of the dataframe, notice how in addition to the "yes" and "no" votes, there are also missing values represented by the "?".
 
 How many features and samples are in this dataframe? Refer to the previous exercise where we computed these values. And take care to note that the number of columns does not equal the number of features!
 
@@ -118,8 +120,14 @@ df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/voti
                                      'satellite', 'aid', 'missile', 'immigration', 'synfuels', 'education',
                                      'superfund', 'crime', 'duty_free_exports', 'eaa_rsa'])
 
-print(df.head())
 ```
+
+*** =sample_code
+```{python}
+#Use the `head` function in Pandas to print the first few rows of the dataframe
+print(df.___)
+```
+
 
 *** =sct
 ```{python}
