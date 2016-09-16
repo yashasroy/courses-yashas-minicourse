@@ -7,7 +7,7 @@ attachments :
 --- type:NormalExercise lang:python xp:100 skills:1 key:72b185d77c
 ## Machine Learning: What is it?
 
-This short course will immerse you into the world of machine learning. Background knowledge expected is a basic familiarity with Pandas, the Python data analysis library. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
+This short course will immerse you into the world of machine learning. Background knowledge expected is a basic familiarity with the Python data analysis libraries NumPy and Pandas. You will train and evaluate a machine learning model to predict the party a US House of Representatives Congressman belongs to based on his/her past voting record. Though the focus of this course is on application and not theory, be prepared to learn some new terminology.
 
 First, what is machine learning? In its broadest sense, it is the art and science of getting computers to act without being explicitly programmed. This course focuses on what is known as supervised machine learning, in which the computer learns from labeled historical data to make future predictions that may either be continuous (What is the value of this stock going to be tomorrow?) or categorical (Is the value of this stock going to go up or down tomorrow?). The latter is called classification, while the former is regression. In our case, the predictions are categorical: Based on his/her votes, is this Congressman a Democrat or a Republican? Therefore, our problem is one of classification and not regression.
 
