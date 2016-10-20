@@ -222,12 +222,15 @@ It is crucial to note that when testing, we do not want the model to be able to 
 
 *** =instructions
 - Import `train_test_split` from `sklearn.cross_validation`.
-- Create an array, y, for the response variable ('party').
+- Create an array, y, for the response variable (`party`).
 - Create the feature vector, X, by dropping the response variable 'party'
 - Split the data so that 60% (0.6) is available for training and 40% (0.4) is held out for testing.
 
 *** =hint
-- 
+- You can import `x` from module `y` using the command `from y import x`.
+- Our response variable here is `party`. To create the appropriate array, you have to index `df` with the name of the response variable.
+- Now that we have an array for our response variable, we must delete it from our feature vector so the labels are hidden from the model! Pass in the response variable `party` to `df.drop()`.
+- Pass in the arrays you created above to `train_test_split`, with `X` coming before `y`. The `test_size` parameter accepts values between 0 and 1, corresponding to how large you want the test set to be. For example, a `test_size` of `0.2` means that 20% of the data will be held out for testing.
 
 *** =pre_exercise_code
 ```{python}
@@ -252,12 +255,13 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 *** =sample_code
 ```{python}
 # Import train_test_split from sklearn.cross_validation
+from sklearn.cross_validation import ____
 
 # Create arrays for the features and the response variable. As a reminder, the response variable is 'party'
 y = df['_']
 X = df.drop('_', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 60% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data. This means that 40% of the data (0.4) is available for testing.
 X_train, X_test, y_train, y_test = train_test_split(_, _, test_size = _)
 ```
 *** =solution
@@ -269,7 +273,7 @@ from sklearn.cross_validation import train_test_split
 y = df['party']
 X = df.drop('party', axis=1)
 
-# Split the data into a training and testing set, such that the training set size is 60% of the data
+# Split the data into a training and testing set, such that the training set size is 60% of the data. This means that 40% of the data (0.4) is available for testing.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 
 ```
@@ -280,16 +284,18 @@ test_import("sklearn.cross_validation.train_test_split")
 
 test_object("y")
 test_object("X")
+
+test_function("sklearn.cross_validation.train_test_split")
+
 test_object("X_train")
 test_object("X_test")
 test_object("y_train")
 test_object("y_test")
-test_function("sklearn.cross_validation.train_test_split")
 
 success_msg("Great work!")
 ```
 --- type:NormalExercise lang:python xp:100 skills:1 key:b0329a110c
-## K Nearest Neighbors: A simple classifier
+## KNN: A simple classifier
 
 Of all the numerous classification algorithms that are used today, K Nearest Neighbors is the most intuitive, and is what we will use in this course. In essence, it makes its predictions by taking a majority vote of its nearest neighbors. All of our training samples are internally represented as vectors in a multidimensional feature space, each with a label ('democrat'/'republican'). When we want to predict the party affiliation of a new sample, we look at the party affiliations of the points closest to our new sample. If we look at 5 neighbors, and 3 of them are republican, while 2 are democrat, we predict that our new sample will be a republican.
 
@@ -383,6 +389,8 @@ test_object("knn", do_eval=False)
 
 test_function("sklearn.neighbors.KNeighborsClassifier")
 
+test_function("knn.fit")
+
 test_object("accuracy")
 
 test_function("sklearn.metrics.accuracy_score")
@@ -392,7 +400,7 @@ test_function("print")
 success_msg("Great work!")
 ```
 --- type:NormalExercise lang:python xp:100 skills:1 key:9a56717464
-## K Nearest Neighbors: Your turn!
+## KNN: Your turn!
 
 Follow the steps in the previous exercise to build your own K Nearest Neighbors classifier. Try 7 neighbors, and print out the accuracy score.
 
@@ -482,6 +490,8 @@ test_object("knn", do_eval=False)
 
 test_function("sklearn.neighbors.KNeighborsClassifier")
 
+test_function("knn.fit")
+
 test_object("accuracy", do_eval=False)
 
 test_function("sklearn.metrics.accuracy_score")
@@ -491,7 +501,7 @@ test_function("print")
 success_msg("Great work!")
 ```
 --- type:NormalExercise lang:python xp:100 skills:1 key:46064f2b22
-## How many neighbors to use?
+## KNN: Varying Number of Neighbors
 
 Code has been written on the right to visualize how the accuracy score varies with different values of k. The `matplotlib.pyplot` Python plotting library has been used for this purpose. To display a plot, we need to end each sequence of plotting statements with a `matplotlib.pyplot.show();`. Here, as is standard practice, `matplotlib.pyplot` has been imported as `plt` for convenience.
 
