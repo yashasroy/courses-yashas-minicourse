@@ -302,10 +302,18 @@ Of all the numerous classification algorithms that are used today, K Nearest Nei
 Let's make a prediction using 5 neighbors.
 
 *** =instructions
-- All you need to do is specify how many neighbors you want to train the model on
-- Observe how we first train the model with the `fit` function, and then evaluate it on the test data
+- Import `KNeighborsClassifier` from `sklearn.neighbors`.
+- Import `accuracy_score` from `sklearn.metrics`.
+- Specify how many neighbors you want to train the model on inside `KNeighborsClassifier()`.
+- Fit the classifier to the training data by passing in `X_train` and `y_train`, in order, to `knn.fit()`.
+- Observe how after we first train the model with the `fit` function, we evaluate it on the test data.
+- Print the `accuracy` you computed above.
 
 *** =hint
+- To import `x` from the module `y`, you can use the command `from y import x`.
+- In this exercise, we need to specify the `K` in K Nearest Neighbors. How many neighbors do we want our model to look at? Pass this number as an argument to `n_neighbors` inside `KNeighborsClassifier()`.
+- To fit the classifier appropriately, `knn.fit()` requires as arguments the training data from the feature vector (`X`) and the array representing the response variable (`y`). Recall that after using `train_test_split`, the required arrays are `X_train` and `y_train`.
+- Pass in `accuracy` to `print()` to display the accuracy.
 
 
 *** =pre_exercise_code
@@ -339,16 +347,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 ```{python}
 
 #Import KNeighborsClassifier from sklearn.neighbors
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import ____
 
 #Import accuracy_score from sklearn.metrics
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import ____
 
 #Create the classifier with 5 neighbors
 knn = KNeighborsClassifier(n_neighbors=_)
 
 #Fit the classifier to the training data (X_train and y_train)
-knn.fit(X_train, y_train)
+knn.fit(____, ____)
 
 # Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
@@ -380,8 +388,6 @@ print(accuracy)
 ```
 *** =sct
 ```{python}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
-
 test_import("sklearn.neighbors.KNeighborsClassifier")
 test_import("sklearn.metrics.accuracy_score")
 
