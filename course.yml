@@ -1,4 +1,7 @@
 title: An Introduction to Classification
-author_field: Yashas Roy
+instructors: 
+ - yashas.roy@gmail.com
+ difficulty_level: 2
+ time_needed: 1 hour
 description: Minicourse on using Congressional Voting data to predict party affiliation
 programming_language: python
