@@ -13,9 +13,9 @@ First, what is machine learning? In its broadest sense, it is the art and scienc
 
 Supervised machine learning models makes predictions based on features that represent some measurable properties relevant to the data.  In our case, the features consist of the voting decisions made by Congressmen on particular issues. Strong features lead to better performing models. Say we want to predict party affiliation. Is it a reasonable hypothesis to assume that democrats and republicans vote differently on certain issues? If so, then having data about past voting records can be a useful set of features. Else, we would have to look at other data sources - maybe age or demographic information. Machine learning allows us to test different hypotheses on an unprecedented scale, and this is where it draws much of its power.
 
-Let's dive in. The dataset of Congressional voting records, `df`, has already been loaded into a pandas dataframe and is available in the workspace. If you want to learn how to import data in Python, refer to the relevant DataCamp course.
+Let's dive in. The dataset of Congressional voting records, `df`, has already been loaded into a pandas dataframe and is available in the workspace. If you want to learn how to import data in Python, refer to the DataCamp course on Importing Data in Python. 
 
-Let's do some basic exploratory analysis to understand its structure. 
+Let's do some basic Exploratory Data Analysis (EDA) to understand its structure. 
 
 *** =instructions
 - Use the pandas function `df.shape`, to display the dimensionality of the dataset. This tells us how many samples there are in the data (number of rows), and how many columns.
@@ -73,31 +73,30 @@ print(df.columns)
 
 *** =sct
 ```{python}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
-msg = "Make sure to print out the dimensions of `df` like this: `print(df.shape)`."
-test_function("print", 1, incorrect_msg = msg)
+msg1 = "Make sure to print out the dimensions of `df` like this: `print(df.shape)`."
+test_function("print", 1, incorrect_msg = msg1)
 
-msg = "Make sure to print out the number of samples in `df` like this: `print(df.shape[0])`."
-test_function("print", 2, incorrect_msg = msg)
+msg2 = "Make sure to print out the number of samples in `df` like this: `print(df.shape[0])`."
+test_function("print", 2, incorrect_msg = msg2)
 
-msg = "Make sure to print out the number of samples in `df` like this: `print(df.shape[1])`."
-test_function("print", 3, incorrect_msg = msg)
+msg3 = "Make sure to print out the number of columns in `df` like this: `print(df.shape[1])`."
+test_function("print", 3, incorrect_msg = msg3)
 
-msg = "Make sure to print out the number of samples in `df` like this: `print(df.columns)`."
-test_function("print", 4, incorrect_msg = msg)
+msg4 = "Make sure to print out the columns in `df` like this: `print(df.columns)`."
+test_function("print", 4, incorrect_msg = msg4)
 
 success_msg("Great work!")
 ```
 --- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
-## What did we learn frome the previous exercise?
+## Exploratory Data Analysis
 
-What was the point of doing all that? We now know how many samples and features there are in the dataset. Or do we? 
+The point of the earlier exercise was to get us familiar with our the structure of our dataset. This is known as Exploratory Data Analysis (EDA), and it is a vital first step in any data analysis project: We need to know what our dataset looks like before we can think about what machine learning models we can apply to it!
 
-Let's take a look at the first few rows of the dataframe to get a better understanding of what the data looks like. To do this, use the pandas function `head` like so: `[dataframe name].head()`. Here, the dataframe has been loaded into the workspace as `df`.
+EDA can be as basic or detailed as you need it to be. Let's continue our EDA and take a look at the first few rows of the dataframe. To do this, use the pandas function `head` like so: `[dataframe name].head()`. Here, the dataframe has been loaded into the workspace as `df`.
 
 Once you print out the first few rows of the dataframe, notice how in addition to the "yes" and "no" votes, there are also missing values represented by the "?".
 
-How many features and samples are in this dataframe? Refer to the previous exercise where we computed these values. And take care to note that the number of columns does not equal the number of features!
+How many features and samples are in this dataframe? Refer to the previous exercise where we computed these values, and feel free to use the IPython Shell to continue exploring the data. And take care to note that the number of columns does not equal the number of features! 
 
 *** =instructions
 - 435 features, 16 samples
@@ -140,24 +139,25 @@ test_mc(4, [msg1, msg2, msg3, msg_success])
 ```
 
 --- type:NormalExercise lang:python xp:100 skills:1 key:fad5659252
-## But wait! Missing values!
+## Imputing Missing Data
 
 As you saw in the previous exercise, we do not know the votes of certain Congressmen on certain issues. These are represented by the '?' instead of a 'yes' ('y') or a 'no' ('n'). Do we just delete these rows? That would throw away most of our data! Let's instead develop a reasonable strategy to fill in these missing values (the technical term is imputation). This is where domain knowledge comes in handy. For our purposes, let's replace the '?'s with the probability of all other representatives voting 'yes' on that particular issue.  
 
-Machine learning algorithms take in numeric values. A 'yes' or a 'no' is not numeric: Let's convert the 'y's to 1s and the 'n's to 0s.
+Imputing missing data is a part of data preprocessing. Real world datasets are often very messy and require some preprocessing before they can be fed into a machine learning model. For example, machine learning algorithms take in numeric values. A 'yes' or a 'no' is not numeric: So let's convert the 'y's to 1s and the 'n's to 0s.
 
 Recall that in supervised machine learning, the model learns from labeled data to make future predictions on unlabeled data. Here, the party affiliation ('Democrat' or 'Republican') represents the labels. If our model is successful (and we will explore in future lessons what constitutes 'successful'), then when unlabeled data about voting information comes in, our model will use what it has learned from the labeled data to assign labels ('Democrat' or 'Republican') to the new, unlabeled, data points.
 
-In unsupervised machine learning, there is no labeled data. There is no initial learning, or 'supervision', in which the model looks at past labeled data to try and capture underlying patterns. This is where the terms "Supervised" and "Unsupervised" come in.
+In unsupervised machine learning, there is no labeled data. There is no initial learning, or 'supervision', in which the model looks at past labeled data to try and capture underlying patterns. This is where the terms "Supervised" and "Unsupervised" come from.
 
 *** =instructions
 - Replace all the ys with 1s.
 - Replace all the ns with 0s.
 - Replace all the ?s with NaNs (This is an efficient way to internally represent missing data, and allows us to impute more easily)
-- Use the 'fillna' function to replace the NaNs with the mean. 
+- Use the 'fillna' function to replace the NaNs with the mean. This code has been written for you: There is no need to change it!
 
 *** =hint
-- Do not be intimidated by the last line of code: We are just filling in the missing values (with `fillna`) with the average of all votes on that issue (with the `mean` function).
+- We want to convert all 'yes' votes to 1s, and 'no' votes to 0s, and all '?' to NaNs (Not a Number). Fill in the missing code appropriately.
+- Do not be intimidated by the last line of code: We are just filling in the missing values (with `fillna`) with the average of all votes on that issue (with the `mean` function). Just fill in the blank with `mean`.
 
 *** =pre_exercise_code
 ```{python}
@@ -205,7 +205,6 @@ df.iloc[:, 1:] = df.iloc[:, 1:].apply(lambda x: x.fillna(x.mean()))
 ```
 *** =sct
 ```{python}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
 
 success_msg("Great work!")
 ```
@@ -228,7 +227,7 @@ It is crucial to note that when testing, we do not want the model to be able to 
 - Split the data so that 60% (0.6) is available for training and 40% (0.4) is held out for testing.
 
 *** =hint
-
+- 
 
 *** =pre_exercise_code
 ```{python}
@@ -277,6 +276,15 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+test_import("sklearn.cross_validation.train_test_split")
+
+test_object("y")
+test_object("X")
+test_object("X_train")
+test_object("X_test")
+test_object("y_train")
+test_object("y_test")
+test_function("sklearn.cross_validation.train_test_split")
 
 success_msg("Great work!")
 ```
@@ -339,6 +347,9 @@ knn.fit(X_train, y_train)
 # Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
 
+#Print the accuracy
+print(____)
+
 ```
 
 *** =solution
@@ -349,14 +360,34 @@ from sklearn.neighbors import KNeighborsClassifier
 #Import accuracy_score from sklearn.metrics
 from sklearn.metrics import accuracy_score
 
+#Create the classifier with 5 nieghbors
 knn = KNeighborsClassifier(n_neighbors=5)
+
+#Fit the classifier to the training data (X_train and y_train)
 knn.fit(X_train, y_train)
+
+# Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
+
+#Print the accuracy
 print(accuracy)
 ```
 *** =sct
 ```{python}
 # SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+
+test_import("sklearn.neighbors.KNeighborsClassifier")
+test_import("sklearn.metrics.accuracy_score")
+
+test_object("knn", do_eval=False)
+
+test_function("sklearn.neighbors.KNeighborsClassifier")
+
+test_object("accuracy")
+
+test_function("sklearn.metrics.accuracy_score")
+
+test_function("print")
 
 success_msg("Great work!")
 ```
@@ -404,16 +435,22 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
 *** =sample_code
 ```{python}
 #Import KNeighborsClassifier from sklearn.neighbors
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neighbors import ____
 
 #Import accuracy_score from sklearn.metrics
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import ____
 
 #Create the classifier with 7 neighbors
+knn = KNeighborsClassifier(n_neighbors = _)
 
 #Fit the classifier to the training data (X_train and y_train)
+knn.fit(____, _____)
 
 # Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
+accuracy = ____(____, ____)
+
+#Print the accuracy
+print(_)
 ```
 
 *** =solution
@@ -424,14 +461,32 @@ from sklearn.neighbors import KNeighborsClassifier
 #Import accuracy_score from sklearn.metrics
 from sklearn.metrics import accuracy_score
 
+#Create the classifier with 7 neighbors
 knn = KNeighborsClassifier(n_neighbors=7)
+
+#Fit the classifier to the training data (X_train and y_train)
 knn.fit(X_train, y_train)
+
+# Use the fitted model to make predictions on the test data (knn.predict(X_test)), and compute the accuracy
 accuracy = accuracy_score(y_test, knn.predict(X_test))
+
+#Print the accuracy
 print(accuracy)
 ```
 *** =sct
 ```{python}
-# SCT written with pythonwhat: https://github.com/datacamp/pythonwhat/wiki
+test_import("sklearn.neighbors.KNeighborsClassifier")
+test_import("sklearn.metrics.accuracy_score")
+
+test_object("knn", do_eval=False)
+
+test_function("sklearn.neighbors.KNeighborsClassifier")
+
+test_object("accuracy", do_eval=False)
+
+test_function("sklearn.metrics.accuracy_score")
+
+test_function("print")
 
 success_msg("Great work!")
 ```
