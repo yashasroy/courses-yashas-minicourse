@@ -90,7 +90,7 @@ success_msg("Great work!")
 --- type:MultipleChoiceExercise lang:python xp:50 skills:1 key:6ec60c3fcd
 ## Exploratory Data Analysis
 
-The point of the earlier exercise was to get us familiar with our the structure of our dataset. This is known as Exploratory Data Analysis (EDA), and it is a vital first step in any data analysis project: We need to know what our dataset looks like before we can think about what machine learning models we can apply to it!
+The point of the earlier exercise was to get us familiar with the structure of our dataset. This is known as Exploratory Data Analysis (EDA), and it is a vital first step in any data analysis project: We need to know what our dataset looks like before we can think about what machine learning models we can apply to it!
 
 EDA can be as basic or detailed as you need it to be. Let's continue our EDA and take a look at the first few rows of the dataframe. To do this, use the pandas function `head` like so: `[dataframe name].head()`. Here, the dataframe has been loaded into the workspace as `df`.
 
