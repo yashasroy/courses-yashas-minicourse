@@ -551,6 +551,8 @@ for k in ks:
 
 plt.plot(ks, scores)
 plt.xlabel("Number of nearest neighbors")
+plt.ylabel("____")
+plt.title("____")
 
 #Practice giving the y-axis a label, and the plot a title. When you are done, "show" the plot!
 
